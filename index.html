@@ -40,6 +40,10 @@
     .status-dot.ok { background: #10b981; box-shadow: 0 0 10px #10b981; }
     .control:focus-visible, .component-card:focus-visible, .workflow-slot:focus-visible, textarea:focus-visible { outline: 3px solid #f59e0b; outline-offset: 3px; }
     .hidden-ui { display: none !important; }
+    .submission-status { min-height:1.5rem; margin-top:.75rem; font-weight:700; }
+    .submission-status.info { color:#a5f3fc; }
+    .submission-status.success { color:#6ee7b7; }
+    .submission-status.error { color:#fca5a5; }
     .progress-fill { transition: width .45s ease; }
     .chip { border: 1px solid rgba(34,211,238,.35); background: rgba(34,211,238,.09); }
     .submit-btn, .next-btn { background: #22d3ee; color: #0f172a; }
@@ -78,7 +82,16 @@
        </div>
        <h2 data-template-id="briefing-title" class="canva-text mb-5 font-extrabold" style="color: rgb(248, 250, 252); font-weight: 800; font-style: normal; font-size: 24px;">Data Flow Commander</h2>
        <p data-template-id="briefing-story-1" class="canva-text mb-4 max-w-2xl leading-relaxed text-slate-200" style="color: rgb(226, 232, 240); font-weight: 400; font-style: normal; font-size: 18px; line-height: 1.6;">Welcome back, Engineer. Your investigation skills have restored individual IoT components across SmartCity.</p>
-       <p data-template-id="briefing-story-2" class="canva-text mb-8 max-w-2xl leading-relaxed text-slate-300" style="color: rgb(203, 213, 225); font-weight: 400; font-style: normal; font-size: 16px; line-height: 1.6;">However, engineers have now discovered a bigger problem. Several IoT systems have been rebuilt incorrectly. Your mission is to rebuild each complete IoT workflow so that information flows correctly from data collection to system action.</p><button id="begin-btn" type="button" data-template-id="begin-button" class="control canva-button rounded-xl px-6 py-4 font-bold transition hover:brightness-110" style="background: rgb(34, 211, 238); color: rgb(15, 23, 42); font-weight: 700; font-style: normal; font-size: 16px;">Begin Mission</button>
+       <p data-template-id="briefing-story-2" class="canva-text mb-8 max-w-2xl leading-relaxed text-slate-300" style="color: rgb(203, 213, 225); font-weight: 400; font-style: normal; font-size: 16px; line-height: 1.6;">However, engineers have now discovered a bigger problem. Several IoT systems have been rebuilt incorrectly. Your mission is to rebuild each complete IoT workflow so that information flows correctly from data collection to system action.</p>
+       <div id="student-panel" class="mb-7 rounded-2xl border border-cyan-300/25 bg-cyan-400/5 p-5">
+        <p class="mb-3 text-xs font-bold tracking-[.14em] text-cyan-300">ACTIVE ENGINEER</p>
+        <div class="grid gap-3 sm:grid-cols-3">
+         <div><p class="text-xs text-slate-400">Student Name</p><p id="active-student-name" class="font-bold text-slate-100">—</p></div>
+         <div><p class="text-xs text-slate-400">Student ID</p><p id="active-student-id" class="font-bold text-slate-100">—</p></div>
+         <div><p class="text-xs text-slate-400">Class</p><p id="active-student-class" class="font-bold text-slate-100">—</p></div>
+        </div>
+        <p id="student-warning" class="hidden-ui mt-4 font-semibold text-red-300">Student details were not found. Return to the main portal and save your profile first.</p>
+       </div><button id="begin-btn" type="button" data-template-id="begin-button" class="control canva-button rounded-xl px-6 py-4 font-bold transition hover:brightness-110" style="background: rgb(34, 211, 238); color: rgb(15, 23, 42); font-weight: 700; font-style: normal; font-size: 16px;">Begin Mission</button>
       </div>
      </section>
      <section id="howto" class="screen max-w-3xl mx-auto pt-8">
@@ -198,7 +211,7 @@
        <p data-template-id="reflection-label" class="canva-text mb-3 font-bold tracking-[.18em]" style="color: rgb(34, 211, 238); font-weight: 800; font-style: normal; font-size: 12px; letter-spacing: 0.13rem;">FINAL ENGINEERING CHECK</p>
        <h2 data-template-id="reflection-title" class="canva-text mb-4 font-extrabold" style="color: rgb(248, 250, 252); font-weight: 800; font-style: normal; font-size: 24px;">Engineering Reflection</h2>
        <p data-template-id="reflection-prompt" class="canva-text mb-6 leading-relaxed text-slate-200" style="color: rgb(226, 232, 240); font-weight: 400; font-style: normal; font-size: 17px; line-height: 1.6;">Imagine you are designing a Smart Waste Management system. Describe how information travels from detecting a full waste bin until the waste collection team receives a notification. Use your own words.</p><label data-template-id="reflection-input-label" class="canva-text mb-2 block font-semibold" for="reflection-text" style="color: rgb(248, 250, 252); font-weight: 600; font-style: normal; font-size: 16px;">Your engineering explanation</label> <textarea id="reflection-text" class="min-h-40 w-full rounded-xl border border-cyan-300/30 bg-slate-950 p-4 text-slate-100 placeholder:text-slate-500" required=""></textarea>
-       <p id="reflection-error" class="mt-2 hidden text-sm font-semibold text-red-300">Please enter your reflection before continuing.</p><button id="report-btn" type="button" data-template-id="report-button" class="control canva-button mt-6 rounded-xl px-6 py-4 font-bold" style="background: rgb(34, 211, 238); color: rgb(15, 23, 42); font-weight: 700; font-style: normal; font-size: 16px;">Generate Mission Report</button>
+       <p id="reflection-error" class="mt-2 hidden text-sm font-semibold text-red-300">Please enter your reflection before continuing.</p><button id="report-btn" type="button" data-template-id="report-button" class="control canva-button mt-6 rounded-xl px-6 py-4 font-bold" style="background: rgb(34, 211, 238); color: rgb(15, 23, 42); font-weight: 700; font-style: normal; font-size: 16px;">Submit Reflection &amp; Generate Mission Report</button><p id="submission-status" class="submission-status" role="status" aria-live="polite"></p>
       </div>
      </section>
      <section id="report" class="screen max-w-4xl mx-auto pt-8">
@@ -228,7 +241,7 @@
        <div class="mt-8 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-6">
         <h3 data-template-id="completion-title" class="canva-text font-extrabold text-emerald-200" style="color: rgb(209, 250, 229); font-weight: 800; font-style: normal; font-size: 20px;">Congratulations Engineer.</h3>
         <p data-template-id="completion-message" class="canva-text mt-2 text-emerald-50" style="color: rgb(236, 253, 245); font-weight: 400; font-style: normal; font-size: 16px;">Mission completed. Return to the main portal to continue your learning journey.</p>
-       </div><button id="replay-btn" type="button" data-template-id="replay-button" class="control canva-button mt-7 rounded-xl px-6 py-4 font-bold" style="background: rgb(34, 211, 238); color: rgb(15, 23, 42); font-weight: 700; font-style: normal; font-size: 16px;">Replay Mission</button>
+       </div><div class="mt-7 flex flex-col gap-3 sm:flex-row"><button id="replay-btn" type="button" data-template-id="replay-button" class="control canva-button rounded-xl px-6 py-4 font-bold" style="background: rgb(34, 211, 238); color: rgb(15, 23, 42); font-weight: 700; font-style: normal; font-size: 16px;">Replay Mission</button><button id="portal-btn" type="button" class="control canva-button rounded-xl border border-slate-500 bg-slate-800 px-6 py-4 font-bold text-slate-100">Return to Main Portal</button></div>
       </div>
      </section>
     </div>
@@ -236,6 +249,15 @@
   </div>
   <script src="/_sdk/b23f1f6ec78e9bd4.editing_sdk.js" integrity="sha512-WFdQutvUZzxrmcHkL8cbfuFDTeF8Cn8Bt3yqX/a/OdiqPz/t9UcjsIsZK7D+tMTmC2JTwhwRJNyfcHmIWhG8Wg=="></script>
   <script>
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwUHRA6dH9Y4zCPPLdU_3VrQS06ix7qyAhMtdtdfa1Ow8ymwvrEPpOi6qZsRdCTKmK4/exec";
+    const PORTAL_URL = "https://mohamadfauziml.github.io/Operation-SmartCity/";
+    const GAME_ID = "OSC101";
+    const MISSION_ID = "M2";
+    const STUDENT_KEY = "ogfStudent";
+    const STATE_KEY = `${GAME_ID}_${MISSION_ID}_state`;
+    const REFLECTION_KEY = `${GAME_ID}_${MISSION_ID}_reflectionDraft`;
+    const COMPLETED_KEY = `${GAME_ID}_${MISSION_ID}_completed`;
+
     const missions = [
       { id:"guided", title:"Smart Streetlight", count:"GUIDED EXAMPLE · 1 OF 6", cards:[["light","Light Sensor","Sensor"],["processor","Processing Unit","Processing Unit"],["actuator","Actuator","Actuator"],["interface","User Interface","User Interface"]], order:["light","processor","actuator","interface"], hint:"Begin where darkness is detected, then follow the decision and action.", explanation:"The light sensor detects darkness. The processing unit evaluates the reading. The actuator switches on the streetlight. The user interface allows monitoring and manual control." },
       { id:"irrigation", title:"Challenge 1 · Smart Irrigation", count:"CHALLENGE 1 OF 5", cards:[["soil","Soil Moisture Sensor","Sensor"],["wifi","Wi-Fi","Connectivity"],["esp","ESP32 Processing Unit","Processing Unit"],["pump","Water Pump","Actuator"],["app","Mobile App","User Interface"]], order:["soil","wifi","esp","pump","app"], hint:"A sensor reading travels through connectivity before a processor can decide to operate the pump.", explanation:"The soil moisture sensor collects the dry-soil data. Wi-Fi transmits it to the ESP32. The ESP32 evaluates whether watering is needed. The water pump acts on the decision, while the mobile app lets the user monitor the system." },
@@ -244,72 +266,373 @@
       { id:"home", title:"Challenge 4 · Smart Home", count:"CHALLENGE 4 OF 5", cards:[["smoke","Smoke Sensor","Sensor"],["wifi","Wi-Fi","Connectivity"],["processor","Processing Unit","Processing Unit"],["alarm","Alarm","Actuator"],["app","Smart Home App","User Interface"]], order:["smoke","wifi","processor","alarm","app"], hint:"An alarm acts on the processed safety decision; the app is for human awareness and control.", explanation:"The smoke sensor collects evidence of smoke. Wi-Fi transmits the event. The processing unit assesses the risk. The alarm acts immediately to warn occupants, while the Smart Home App displays the alert and supports monitoring." },
       { id:"factory", title:"Challenge 5 · Smart Factory", count:"CHALLENGE 5 OF 5", cards:[["machine","Machine Sensor","Sensor"],["ethernet","Ethernet","Connectivity"],["processor","Processing Unit","Processing Unit"],["cloud","Cloud Platform","Cloud Platform"],["manager","Manager Dashboard","User Interface"]], order:["machine","ethernet","processor","cloud","manager"], hint:"Historical reports require a cloud platform before information reaches the remote manager dashboard.", explanation:"The machine sensor continuously collects performance data. Ethernet transmits it reliably. The processing unit evaluates the data. The cloud platform stores historical information for remote access, and the Manager Dashboard presents reports to managers." }
     ];
-    let current = 0, selectedCard = null, scores = [0,0,0,0,0], attempts = [0,0,0,0,0], correctCount = 0;
 
-    function showScreen(id) { document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active")); document.getElementById(id).classList.add("active"); window.scrollTo({top:0,behavior:"smooth"}); }
+    let current = 0;
+    let selectedCard = null;
+    let scores = [0,0,0,0,0];
+    let attempts = [0,0,0,0,0];
+    let correctCount = 0;
+
+    function getStudent() {
+      try {
+        const profile = JSON.parse(localStorage.getItem(STUDENT_KEY) || localStorage.getItem(`${GAME_ID}_student`) || "null");
+        if (profile?.studentName && profile?.studentId && profile?.studentClass) return profile;
+      } catch (_) {}
+      const studentName = localStorage.getItem("ogfStudentName");
+      const studentId = localStorage.getItem("ogfStudentId");
+      const studentClass = localStorage.getItem("ogfStudentClass");
+      return studentName && studentId && studentClass ? { studentName, studentId, studentClass } : null;
+    }
+
+    function renderStudent() {
+      const profile = getStudent();
+      const beginButton = document.getElementById("begin-btn");
+      if (!profile) {
+        document.getElementById("student-warning").classList.remove("hidden-ui");
+        beginButton.textContent = "Return to Main Portal";
+        return null;
+      }
+      document.getElementById("active-student-name").textContent = profile.studentName;
+      document.getElementById("active-student-id").textContent = profile.studentId;
+      document.getElementById("active-student-class").textContent = profile.studentClass;
+      return profile;
+    }
+
+    function saveLocalState(extra = {}) {
+      localStorage.setItem(STATE_KEY, JSON.stringify({
+        current,
+        scores,
+        attempts,
+        correctCount,
+        totalScore: scores.reduce((a,b)=>a+b,0),
+        updatedAt: new Date().toISOString(),
+        ...extra
+      }));
+    }
+
+    function showScreen(id) {
+      document.querySelectorAll(".screen").forEach(x => x.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+
     function createWorkflow(mission) {
-      const holder = document.querySelector("#challenge-"+mission.id+" .workflow-layout");
-      holder.innerHTML = ""; const fragment = document.getElementById("workflow-template").content.cloneNode(true); holder.appendChild(fragment);
-      const bay = holder.querySelector(".component-bay"), stack = holder.querySelector(".slot-stack");
-      holder.querySelector(".hint-message").textContent = mission.hint; holder.querySelector(".explanation-message").textContent = mission.explanation;
+      const holder = document.querySelector("#challenge-" + mission.id + " .workflow-layout");
+      holder.innerHTML = "";
+      const fragment = document.getElementById("workflow-template").content.cloneNode(true);
+      holder.appendChild(fragment);
+      const bay = holder.querySelector(".component-bay");
+      const stack = holder.querySelector(".slot-stack");
+      holder.querySelector(".hint-message").textContent = mission.hint;
+      holder.querySelector(".explanation-message").textContent = mission.explanation;
+
       mission.cards.forEach(([key,label,category]) => {
-        const card = document.createElement("button"); card.type="button"; card.className="component-card rounded-xl p-3 text-left"; card.draggable=true; card.dataset.key=key;
-        card.innerHTML=`<span class="block text-sm font-bold text-slate-50">${label}</span><span class="mt-1 inline-block text-xs text-cyan-200">${category}</span>`;
-        bindCard(card, holder); bay.appendChild(card);
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "component-card rounded-xl p-3 text-left";
+        card.draggable = true;
+        card.dataset.key = key;
+        card.innerHTML = `<span class="block text-sm font-bold text-slate-50">${label}</span><span class="mt-1 inline-block text-xs text-cyan-200">${category}</span>`;
+        bindCard(card, holder);
+        bay.appendChild(card);
       });
+
       mission.order.forEach((key,i) => {
-        const slot=document.createElement("button"); slot.type="button"; slot.className="workflow-slot rounded-xl p-2 text-left"; slot.dataset.expected=key; slot.dataset.position=i;
-        slot.innerHTML=`<span class="flex items-center gap-3"><span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-cyan-300/40 text-xs font-bold text-cyan-200">${i+1}</span><span class="text-sm text-slate-400">Select a component, then place it here</span></span>`;
-        bindSlot(slot,holder); stack.appendChild(slot); if(i<mission.order.length-1){const c=document.createElement("div");c.className="connector";stack.appendChild(c);}
+        const slot = document.createElement("button");
+        slot.type = "button";
+        slot.className = "workflow-slot rounded-xl p-2 text-left";
+        slot.dataset.expected = key;
+        slot.dataset.position = i;
+        slot.innerHTML = `<span class="flex items-center gap-3"><span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-cyan-300/40 text-xs font-bold text-cyan-200">${i+1}</span><span class="text-sm text-slate-400">Select a component, then place it here</span></span>`;
+        bindSlot(slot, holder);
+        stack.appendChild(slot);
+        if (i < mission.order.length - 1) {
+          const connector = document.createElement("div");
+          connector.className = "connector";
+          stack.appendChild(connector);
+        }
       });
-      holder.querySelector(".submit-btn").addEventListener("click",()=>submitWorkflow(holder, mission));
-      holder.querySelector(".retry-btn").addEventListener("click",()=>createWorkflow(mission));
-      holder.querySelector(".next-btn").addEventListener("click",nextMission);
+
+      holder.querySelector(".submit-btn").addEventListener("click", () => submitWorkflow(holder, mission));
+      holder.querySelector(".retry-btn").addEventListener("click", () => createWorkflow(mission));
+      holder.querySelector(".next-btn").addEventListener("click", nextMission);
     }
+
     function bindCard(card, holder) {
-      card.addEventListener("dragstart",e=>{selectedCard=card;e.dataTransfer.setData("text/plain",card.dataset.key);});
-      card.addEventListener("click",()=>{ if(card.parentElement.classList.contains("slot-stack")) { holder.querySelector(".component-bay").appendChild(card); } else { holder.querySelectorAll(".component-card").forEach(c=>c.classList.remove("selected")); selectedCard=card; card.classList.add("selected"); } updateSubmit(holder); });
-      card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();card.click();}});
+      card.addEventListener("dragstart", event => {
+        selectedCard = card;
+        event.dataTransfer.setData("text/plain", card.dataset.key);
+      });
+      card.addEventListener("click", () => {
+        if (card.closest(".workflow-slot")) {
+          holder.querySelector(".component-bay").appendChild(card);
+        } else {
+          holder.querySelectorAll(".component-card").forEach(c => c.classList.remove("selected"));
+          selectedCard = card;
+          card.classList.add("selected");
+        }
+        updateSubmit(holder);
+      });
+      card.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          card.click();
+        }
+      });
     }
+
     function bindSlot(slot, holder) {
-      slot.addEventListener("dragover",e=>{e.preventDefault();slot.classList.add("drag-over");});
-      slot.addEventListener("dragleave",()=>slot.classList.remove("drag-over"));
-      slot.addEventListener("drop",e=>{e.preventDefault();slot.classList.remove("drag-over"); placeCard(selectedCard,slot,holder);});
-      slot.addEventListener("click",()=>placeCard(selectedCard,slot,holder));
-      slot.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();placeCard(selectedCard,slot,holder);}});
+      slot.addEventListener("dragover", event => {
+        event.preventDefault();
+        slot.classList.add("drag-over");
+      });
+      slot.addEventListener("dragleave", () => slot.classList.remove("drag-over"));
+      slot.addEventListener("drop", event => {
+        event.preventDefault();
+        slot.classList.remove("drag-over");
+        placeCard(selectedCard, slot, holder);
+      });
+      slot.addEventListener("click", () => placeCard(selectedCard, slot, holder));
+      slot.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          placeCard(selectedCard, slot, holder);
+        }
+      });
     }
-    function placeCard(card,slot,holder) { if(!card || slot.querySelector(".component-card")) return; slot.innerHTML=""; slot.appendChild(card); card.classList.remove("selected"); selectedCard=null; updateSubmit(holder); }
-    function updateSubmit(holder) { holder.querySelector(".submit-btn").disabled = holder.querySelectorAll(".workflow-slot .component-card").length !== holder.querySelectorAll(".workflow-slot").length; }
-    function submitWorkflow(holder,mission) {
-      const slots=[...holder.querySelectorAll(".workflow-slot")], valid=slots.every(s=>s.querySelector(".component-card").dataset.key===s.dataset.expected);
-      const feedback=holder.querySelector(".feedback-panel"), retry=holder.querySelector(".retry-btn"), next=holder.querySelector(".next-btn"), explanation=holder.querySelector(".explanation-panel");
-      slots.forEach(s=>s.classList.toggle("correct",s.querySelector(".component-card").dataset.key===s.dataset.expected));
-      holder.querySelector(".slot-stack").classList.add("flowing"); explanation.classList.remove("hidden-ui"); feedback.classList.remove("hidden-ui");
-      if(valid) {
-        if(current>0){const points=attempts[current-1]===0?10:attempts[current-1]===1?8:6;scores[current-1]=points;correctCount++;updateScore();}
-        holder.querySelector("#status-message").textContent="Workflow verified. Information flow restored.";
-        feedback.className="feedback-panel rounded-2xl border border-emerald-400/40 bg-emerald-400/10 p-4 text-sm leading-relaxed text-emerald-100";
-        feedback.textContent="Correct sequence. Each connection now follows the engineering path from data collection to action and user monitoring.";
-        next.classList.remove("hidden-ui"); holder.querySelector(".submit-btn").classList.add("hidden-ui");
+
+    function placeCard(card, slot, holder) {
+      if (!card || slot.querySelector(".component-card")) return;
+      slot.innerHTML = "";
+      slot.appendChild(card);
+      card.classList.remove("selected");
+      selectedCard = null;
+      updateSubmit(holder);
+    }
+
+    function updateSubmit(holder) {
+      holder.querySelector(".submit-btn").disabled =
+        holder.querySelectorAll(".workflow-slot .component-card").length !==
+        holder.querySelectorAll(".workflow-slot").length;
+    }
+
+    function submitWorkflow(holder, mission) {
+      const slots = [...holder.querySelectorAll(".workflow-slot")];
+      const valid = slots.every(slot => slot.querySelector(".component-card")?.dataset.key === slot.dataset.expected);
+      const feedback = holder.querySelector(".feedback-panel");
+      const retry = holder.querySelector(".retry-btn");
+      const next = holder.querySelector(".next-btn");
+      const explanation = holder.querySelector(".explanation-panel");
+
+      slots.forEach(slot => {
+        slot.classList.toggle("correct", slot.querySelector(".component-card")?.dataset.key === slot.dataset.expected);
+      });
+      holder.querySelector(".slot-stack").classList.add("flowing");
+      explanation.classList.remove("hidden-ui");
+      feedback.classList.remove("hidden-ui");
+
+      if (valid) {
+        if (current > 0) {
+          const index = current - 1;
+          const points = attempts[index] === 0 ? 10 : attempts[index] === 1 ? 8 : 6;
+          if (scores[index] === 0) {
+            scores[index] = points;
+            correctCount += 1;
+          }
+          updateScore();
+        }
+        holder.querySelector("#status-message").textContent = "Workflow verified. Information flow restored.";
+        feedback.className = "feedback-panel rounded-2xl border border-emerald-400/40 bg-emerald-400/10 p-4 text-sm leading-relaxed text-emerald-100";
+        feedback.textContent = "Correct sequence. Each connection now follows the engineering path from data collection to action and user monitoring.";
+        next.classList.remove("hidden-ui");
+        holder.querySelector(".submit-btn").classList.add("hidden-ui");
+        saveLocalState({stage:"challenge-completed", missionId:mission.id});
       } else {
-        if(current>0) attempts[current-1]++;
-        slots.forEach(s=>{if(!s.classList.contains("correct"))s.classList.add("incorrect");});
-        holder.querySelector("#status-message").textContent="Connection fault detected. Review the red workflow positions.";
-        feedback.className="feedback-panel rounded-2xl border border-red-400/40 bg-red-400/10 p-4 text-sm leading-relaxed text-red-100";
-        feedback.textContent="Not quite. Sensors collect data first; connectivity carries it; processing evaluates it; actuators perform physical actions; interfaces present information to people. Review the highlighted positions and retry.";
-        retry.classList.remove("hidden-ui"); holder.querySelector(".submit-btn").classList.add("hidden-ui");
+        if (current > 0) attempts[current - 1] += 1;
+        slots.forEach(slot => {
+          if (!slot.classList.contains("correct")) slot.classList.add("incorrect");
+        });
+        holder.querySelector("#status-message").textContent = "Connection fault detected. Review the red workflow positions.";
+        feedback.className = "feedback-panel rounded-2xl border border-red-400/40 bg-red-400/10 p-4 text-sm leading-relaxed text-red-100";
+        feedback.textContent = "Not quite. Sensors collect data first; connectivity carries it; processing evaluates it; actuators perform physical actions; interfaces present information to people. Review the highlighted positions and retry.";
+        retry.classList.remove("hidden-ui");
+        holder.querySelector(".submit-btn").classList.add("hidden-ui");
+        saveLocalState({stage:"retry-required", missionId:mission.id});
       }
     }
-    function nextMission(){ current++; if(current>=missions.length){showScreen("reflection");return;} renderMission(); }
-    function renderMission(){ showScreen("game"); document.querySelectorAll(".challenge").forEach(x=>x.classList.add("hidden-ui")); const m=missions[current]; document.querySelector("#challenge-"+m.id).classList.remove("hidden-ui"); document.getElementById("challenge-title").textContent=m.title; document.getElementById("mission-count").textContent=m.count; document.getElementById("progress-fill").style.width=(current/6*100)+"%";document.getElementById("progress-text").textContent=Math.round(current/6*100)+"%";createWorkflow(m); }
-    function updateScore(){const total=scores.reduce((a,b)=>a+b,0);document.getElementById("score-display").textContent=total+" / 50";}
-    function report(){const total=scores.reduce((a,b)=>a+b,0), accuracy=Math.round(correctCount/5*100);document.getElementById("final-score").textContent=total+" / 50";document.getElementById("accuracy-value").textContent=accuracy+"%";const level=total>=45?"SmartCity Systems Engineer":total>=35?"IoT Workflow Specialist":total>=25?"IoT Technician":"Engineering Trainee";document.getElementById("performance-level").textContent=level;document.getElementById("report-feedback").textContent=total>=45?"Excellent. You correctly constructed every IoT workflow and demonstrated how information moves through interconnected systems.":"Review how Connectivity differs from Cloud Platform before replaying this mission.";const list=document.getElementById("score-breakdown");list.innerHTML="";missions.slice(1).forEach((m,i)=>{const p=document.createElement("p");p.className="rounded-lg bg-slate-950/60 px-4 py-3 text-sm text-slate-200";p.textContent=m.title.replace("Challenge "+(i+1)+" · ","")+" — "+scores[i]+"/10 points";list.appendChild(p);});showScreen("report");}
-    function reset(){current=0;selectedCard=null;scores=[0,0,0,0,0];attempts=[0,0,0,0,0];correctCount=0;updateScore();document.getElementById("reflection-text").value="";document.getElementById("progress-fill").style.width="0%";document.getElementById("progress-text").textContent="0%";showScreen("briefing");}
-    document.getElementById("begin-btn").addEventListener("click",()=>showScreen("howto"));
-    document.getElementById("guided-btn").addEventListener("click",()=>{current=0;renderMission();});
-    document.getElementById("report-btn").addEventListener("click",()=>{const t=document.getElementById("reflection-text");document.getElementById("reflection-error").classList.toggle("hidden",!!t.value.trim());if(t.value.trim())report();});
-    document.getElementById("replay-btn").addEventListener("click",reset);
+
+    function nextMission() {
+      current += 1;
+      if (current >= missions.length) {
+        saveLocalState({stage:"reflection"});
+        showScreen("reflection");
+        return;
+      }
+      renderMission();
+    }
+
+    function renderMission() {
+      showScreen("game");
+      document.querySelectorAll(".challenge").forEach(x => x.classList.add("hidden-ui"));
+      const mission = missions[current];
+      document.querySelector("#challenge-" + mission.id).classList.remove("hidden-ui");
+      document.getElementById("challenge-title").textContent = mission.title;
+      document.getElementById("mission-count").textContent = mission.count;
+      document.getElementById("progress-fill").style.width = (current / 6 * 100) + "%";
+      document.getElementById("progress-text").textContent = Math.round(current / 6 * 100) + "%";
+      createWorkflow(mission);
+      saveLocalState({stage:"game", missionId:mission.id});
+    }
+
+    function updateScore() {
+      const total = scores.reduce((a,b) => a+b, 0);
+      document.getElementById("score-display").textContent = total + " / 50";
+    }
+
+    function showReport() {
+      const total = scores.reduce((a,b) => a+b, 0);
+      const accuracy = Math.round(correctCount / 5 * 100);
+      document.getElementById("final-score").textContent = total + " / 50";
+      document.getElementById("accuracy-value").textContent = accuracy + "%";
+      const level = total >= 45 ? "SmartCity Systems Engineer" :
+                    total >= 35 ? "IoT Workflow Specialist" :
+                    total >= 25 ? "IoT Technician" : "Engineering Trainee";
+      document.getElementById("performance-level").textContent = level;
+      document.getElementById("report-feedback").textContent =
+        total >= 45
+          ? "Excellent. You correctly constructed every IoT workflow and demonstrated how information moves through interconnected systems."
+          : "Review how Connectivity differs from Cloud Platform before replaying this mission.";
+
+      const list = document.getElementById("score-breakdown");
+      list.innerHTML = "";
+      missions.slice(1).forEach((mission,index) => {
+        const row = document.createElement("p");
+        row.className = "rounded-lg bg-slate-950/60 px-4 py-3 text-sm text-slate-200";
+        row.textContent = mission.title.replace("Challenge " + (index + 1) + " · ", "") + " — " + scores[index] + "/10 points";
+        list.appendChild(row);
+      });
+      saveLocalState({stage:"submitted", submitted:true});
+      showScreen("report");
+    }
+
+    async function submitMission() {
+      const profile = getStudent();
+      const reflectionInput = document.getElementById("reflection-text");
+      const reflection = reflectionInput.value.trim();
+      const error = document.getElementById("reflection-error");
+      const status = document.getElementById("submission-status");
+      const button = document.getElementById("report-btn");
+      const total = scores.reduce((a,b) => a+b, 0);
+
+      if (!profile) {
+        status.className = "submission-status error";
+        status.textContent = "Student details are missing. Return to the main portal and save your profile first.";
+        return;
+      }
+      if (!reflection) {
+        error.classList.remove("hidden");
+        reflectionInput.focus();
+        return;
+      }
+
+      error.classList.add("hidden");
+      localStorage.setItem(REFLECTION_KEY, reflection);
+      saveLocalState({stage:"ready-to-submit", reflection});
+
+      const payload = {
+        action: "submitReflection",
+        gameId: GAME_ID,
+        missionId: MISSION_ID,
+        studentId: profile.studentId,
+        studentName: profile.studentName,
+        studentClass: profile.studentClass,
+        score: total,
+        maxScore: 50,
+        percentage: Math.round((total / 50) * 100),
+        reflection,
+        status: "Completed",
+        clientTimestamp: new Date().toISOString()
+      };
+
+      button.disabled = true;
+      button.textContent = "Submitting...";
+      status.className = "submission-status info";
+      status.textContent = "Submitting your mission result and reflection...";
+
+      try {
+        const response = await fetch(WEB_APP_URL, {
+          method: "POST",
+          headers: {"Content-Type":"text/plain;charset=utf-8"},
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json();
+        if (!result.success) throw new Error(result.error || "Submission failed.");
+
+        localStorage.setItem(COMPLETED_KEY, "true");
+        localStorage.setItem(`${GAME_ID}_missionChecklist`, JSON.stringify([
+          localStorage.getItem(`${GAME_ID}_M1_completed`) === "true",
+          true,
+          localStorage.getItem(`${GAME_ID}_M3_completed`) === "true",
+          localStorage.getItem(`${GAME_ID}_M4_completed`) === "true"
+        ]));
+        localStorage.removeItem(REFLECTION_KEY);
+        status.className = "submission-status success";
+        status.textContent = result.attemptNo
+          ? `Submission recorded successfully · Attempt ${result.attemptNo}`
+          : "Submission recorded successfully.";
+        showReport();
+      } catch (errorObject) {
+        console.error(errorObject);
+        status.className = "submission-status error";
+        status.textContent = "Submission failed. Your score and reflection remain saved on this device. Check your connection and try again.";
+      } finally {
+        button.disabled = false;
+        button.textContent = "Submit Reflection & Generate Mission Report";
+      }
+    }
+
+    function reset() {
+      current = 0;
+      selectedCard = null;
+      scores = [0,0,0,0,0];
+      attempts = [0,0,0,0,0];
+      correctCount = 0;
+      updateScore();
+      document.getElementById("reflection-text").value = "";
+      localStorage.removeItem(REFLECTION_KEY);
+      localStorage.removeItem(STATE_KEY);
+      document.getElementById("progress-fill").style.width = "0%";
+      document.getElementById("progress-text").textContent = "0%";
+      showScreen("briefing");
+    }
+
+    document.getElementById("begin-btn").addEventListener("click", () => {
+      if (!getStudent()) {
+        window.location.href = PORTAL_URL;
+        return;
+      }
+      showScreen("howto");
+    });
+    document.getElementById("guided-btn").addEventListener("click", () => {
+      current = 0;
+      renderMission();
+    });
+    document.getElementById("report-btn").addEventListener("click", submitMission);
+    document.getElementById("replay-btn").addEventListener("click", reset);
+    document.getElementById("portal-btn").addEventListener("click", () => {
+      window.location.href = PORTAL_URL;
+    });
+
+    const reflectionInput = document.getElementById("reflection-text");
+    reflectionInput.value = localStorage.getItem(REFLECTION_KEY) || "";
+    reflectionInput.addEventListener("input", () => {
+      localStorage.setItem(REFLECTION_KEY, reflectionInput.value);
+      saveLocalState({stage:"reflection", reflection:reflectionInput.value});
+    });
+
+    renderStudent();
     lucide.createIcons();
+    updateScore();
   </script>
  
 </body></html>
